@@ -1,9 +1,52 @@
-h2 Game code is #{game.code}
-h3 Digits are #{digits}
-a.btn.btn-danger href="/game" Game
-.well.well-sm
-  form.form-inline
-    .form-group
-      input.form-control placeholder="Enter your guess"
-    .form-group
-      button.btn.btn-primary type="submit" Submit code
+.container
+  .row
+    .col-xs-12.col-sm-12.col-md-6.col-lg-6
+      h2 Game code is #{cb_session.game.code}
+      .panel.panel-success
+        .panel-heading
+          h4 Hint
+        - unless cb_session.hint_given
+          .panel-body You may want to get a hint :-)
+          .panel-footer
+            a.btn.btn-sm.btn-success href="/hint" Show hint
+        - else
+          .panel-body The code has #{cb_session.game.hint} at some arbitrary position
+      - unless cb_session.game_over
+        .well.well-sm
+          form.form-inline method="post" action="/submit_guess"
+            .form-group
+              input.form-control name="guess" placeholder="Enter your guess" autofocus="true"
+            .form-group
+              button.btn.btn-primary type="submit" Submit code
+      - else
+        - if cb_session.guesses.last[1] == '++++'
+          .alert.alert-success
+            span You won!
+            span
+              a.btn.btn-primary href="/game" Play again
+        - else
+          .alert.alert-danger
+            span You lost! The code was #{cb_session.game.code}
+            span
+              a.btn.btn-primary href="/game" Play again
+      - unless cb_session.invalid_submit.nil?
+        .panel.panel-danger
+          .panel-heading
+            h4 Invalid input!
+          .panel-body Your last input '#{cb_session.invalid_submit}' is incorrect
+      - unless cb_session.guesses.length.zero?
+        .panel.panel-default
+          .panel-heading
+            h4 Here are the feedbacks for your guesses, #{cb_session.attempts} attempts left
+          table.table.table-striped
+            thead
+              tr
+                td Attempt #
+                td Guess
+                td Feedback
+            tbody
+            - cb_session.guesses.each_with_index do |g, i|
+                tr
+                  td = i + 1
+                  td = g[0]
+                  td = g[1]
