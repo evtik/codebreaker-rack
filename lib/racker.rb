@@ -26,35 +26,43 @@ class Racker
   end
 
   def new_game
-    @request.session[:cb_session] = GameSession.new(Codebreaker::Game.new)
-    @game_session = @request.session[:cb_session]
-    Rack::Response.new(render('game.slim', cb_session: @game_session))
+    cb_session = GameSession.new(Codebreaker::Game.new)
+    @request.session[:cb_session] = cb_session
+    render_game_view(cb_session)
   end
 
   def hint
     cb_session = @request.session[:cb_session]
     cb_session.game.hint
     cb_session.hint_given = true
-    Rack::Response.new(render('game.slim', cb_session: cb_session))
+    render_game_view(cb_session)
   end
 
   def submit_guess
     guess = @request.params['guess']
     cb_session = @request.session[:cb_session]
     if guess =~ /\A[1-6]{4}\z/
-      cb_session.invalid_submit = nil
-      cb_session.attempts -= 1
-      if guess == cb_session.game.code
-        cb_session.guesses << [guess, '++++']
-        cb_session.game_over = true
-      else
-        feedback = cb_session.game.submit_guess(guess)
-        cb_session.guesses << [guess, feedback]
-        cb_session.game_over = true if cb_session.attempts.zero?
-      end
+      process_valid_guess(cb_session, guess)
     else
       cb_session.invalid_submit = guess
     end
+    render_game_view(cb_session)
+  end
+
+  def process_valid_guess(cb_session, guess)
+    cb_session.invalid_submit = nil
+    cb_session.attempts -= 1
+    if guess == cb_session.game.code
+      cb_session.guesses << [guess, '++++']
+      cb_session.game_over = true
+    else
+      feedback = cb_session.game.submit_guess(guess)
+      cb_session.guesses << [guess, feedback]
+      cb_session.game_over = true if cb_session.attempts.zero?
+    end
+  end
+
+  def render_game_view(cb_session)
     Rack::Response.new(render('game.slim', cb_session: cb_session))
   end
 
