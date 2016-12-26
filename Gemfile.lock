@@ -1,6 +1,6 @@
 GIT
-  remote: https://github.com/evtik/codebreikar
-  revision: 189e93e8608b6f7ea56c6423e75815197de9b052
+  remote: https://github.com/evtik/codebreaker
+  revision: dec8a2cbc42dddcf3cba34a5b0e22a2c5ef8cde3
   specs:
     codebreaker (0.1.0)
 
@@ -14,6 +14,7 @@ GEM
   specs:
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
+    builder (3.2.2)
     capybara (2.11.0)
       addressable
       mime-types (>= 1.16)
@@ -35,6 +36,9 @@ GEM
     rack (2.0.1)
     rack-test (0.6.3)
       rack (>= 1.0)
+    rack_session_access (0.1.1)
+      builder (>= 2.0.0)
+      rack (>= 1.0.0)
     rake (10.5.0)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
@@ -72,6 +76,7 @@ DEPENDENCIES
   codebreaker!
   codebreaker_rack!
   rack
+  rack_session_access
   rake (~> 10.0)
   rspec
   selenium-webdriver

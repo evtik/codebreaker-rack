@@ -4,9 +4,10 @@ source 'https://rubygems.org'
 gemspec
 gem 'rack'
 gem 'slim'
-gem 'codebreaker', git: 'https://github.com/evtik/codebreikar'
+gem 'codebreaker', git: 'https://github.com/evtik/codebreaker'
 group :test do
   gem 'rspec'
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'rack_session_access'
 end
