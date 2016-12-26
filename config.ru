@@ -1,4 +1,5 @@
 require './lib/racker'
+require 'rack_session_access'
 
 use Rack::Static, urls: ['/css'], root: 'public'
 use Rack::Session::Cookie, key: 'rack.session',

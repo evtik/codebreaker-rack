@@ -10,7 +10,6 @@ feature 'hint page', type: :feature do
   end
 
   scenario 'shows a game hint' do
-    puts self
     expect(page).to have_content('/has\s+\d{1}\s+at')
   end
 
