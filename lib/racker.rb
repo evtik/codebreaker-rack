@@ -7,8 +7,8 @@ class Racker
     attr_accessor :game, :guesses,
       :game_over, :hint_given, :invalid_submit, :attempts
 
-    def initialize(game)
-      @game = game
+    def initialize
+      @game = Codebreaker::Game.new
       @guesses = []
       @attempts = 10
     end
@@ -26,7 +26,7 @@ class Racker
   end
 
   def new_game
-    cb_session = GameSession.new(Codebreaker::Game.new)
+    cb_session = GameSession.new
     @request.session[:cb_session] = cb_session
     render_game_view(cb_session)
   end

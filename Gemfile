@@ -4,4 +4,9 @@ source 'https://rubygems.org'
 gemspec
 gem 'rack'
 gem 'slim'
-gem 'codebreaker', :git => "https://github.com/evtik/codebreikar"
+gem 'codebreaker', git: 'https://github.com/evtik/codebreikar'
+group :test do
+  gem 'rspec'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+end
