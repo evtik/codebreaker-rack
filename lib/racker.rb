@@ -1,4 +1,5 @@
 require 'slim'
+require 'slim/include'
 # require 'slim/logic_less'
 require 'codebreaker'
 
