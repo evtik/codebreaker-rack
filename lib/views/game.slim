@@ -6,7 +6,7 @@
       - unless cb_session.game_over
         include _guess_form
       - else
-        include _play_again
+        include _results_panel
       - unless cb_session.invalid_submit.nil?
         include _error_message
       - unless cb_session.guesses.length.zero?

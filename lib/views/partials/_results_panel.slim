@@ -1,10 +1,8 @@
 - if cb_session.guesses.last[1] == '++++'
   .alert.alert-success
     span You won!
-    span
-      a.btn.btn-primary href="/game" Play again
+    include _play_again_save
 - else
   .alert.alert-danger
     span You lost! The code was #{cb_session.game.code}
-    span
-      a.btn.btn-primary href="/game" Play again
+    include _play_again_save

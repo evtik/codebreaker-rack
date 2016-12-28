@@ -5,8 +5,8 @@ require 'codebreaker'
 
 class Racker
   class GameSession
-    attr_accessor :game, :guesses,
-      :game_over, :hint_given, :invalid_submit, :attempts
+    attr_accessor :game, :guesses, :game_over, :hint_given,
+      :invalid_submit, :attempts, :username
 
     def initialize
       @game = Codebreaker::Game.new
@@ -16,12 +16,14 @@ class Racker
   end
 
   def call(env)
+    puts "env is #{env['rack.session']}"
     @request = Rack::Request.new(env)
     case @request.path
     when '/' then Rack::Response.new(render('index.slim'))
     when '/game' then new_game
     when '/hint' then hint
     when '/submit_guess' then submit_guess
+    when '/save_results' then save_results
     else Rack::Response.new('Not found', 404)
     end
   end
@@ -42,12 +44,23 @@ class Racker
   def submit_guess
     guess = @request.params['guess']
     cb_session = @request.session[:cb_session]
-    if guess =~ /\A[1-6]{4}\z/
-      process_valid_guess(cb_session, guess)
-    else
-      cb_session.invalid_submit = guess
+    unless cb_session.attempts.zero?
+      if guess =~ /\A[1-6]{4}\z/
+        process_valid_guess(cb_session, guess)
+      else
+        cb_session.invalid_submit = guess
+      end
     end
     render_game_view(cb_session)
+  end
+
+  def save_results
+    cb_session = @request.session[:cb_session]
+    if cb_session.username.nil?
+      # render stats
+    else
+      render(username.slim)
+    end
   end
 
   def process_valid_guess(cb_session, guess)
