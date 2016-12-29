@@ -3,11 +3,13 @@
     .col-xs-12.col-sm-12.col-md-6.col-lg-6
       h2 It's time to break some codes!
       include _hint_panel
+      - if cb_session.username_being_added
+        include _username_form
       - unless cb_session.game_over
         include _guess_form
       - else
         include _results_panel
-      - unless cb_session.invalid_submit.nil?
+      - unless cb_session.invalid_input.nil?
         include _error_message
       - unless cb_session.guesses.length.zero?
         include _feedback_table

@@ -1,4 +1,5 @@
 span
   a.btn.btn-primary href="/game" Play again
-span
-  a.btn.btn-warning href="/save_results" Save results
+-unless cb_session.username_being_added
+  span
+    a.btn.btn-warning href="/save_results" Save results
