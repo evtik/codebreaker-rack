@@ -6,7 +6,7 @@ require 'slim/include'
 require 'codebreaker'
 
 class Racker
-   VALID_PATHS = %w(/game /hint /submit_guess /save_results /submit_username)
+  VALID_PATHS = %w(/game /hint /submit_guess /save_results /submit_username)
 
   class GameSession
     attr_accessor :game, :attempts, :guesses, :game_over,
