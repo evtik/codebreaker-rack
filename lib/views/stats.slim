@@ -14,10 +14,10 @@
                 td Attempts
                 td Result
             tbody
-            - stats.each do |key, value|
+            - stats.each do |value|
               tr
-                td = key
-                - value.each do |entry|
+                td = value.first
+                - value.last.each do |entry|
                   td = entry
         .panel-footer
           a.btn.btn-primary href="/game" Play again

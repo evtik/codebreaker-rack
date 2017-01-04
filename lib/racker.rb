@@ -93,8 +93,8 @@ class Racker
       @cb_session.guesses.length,
       @cb_session.guesses.last[1] == '++++' ? 'won' : 'lost'
     ]
-    @stats = @stats.sort_by { |_k, v| v.first }.reverse
     write_stats
+    @stats = @stats.sort_by { |_k, v| v.first }.reverse
     render_stats_view
   end
 
