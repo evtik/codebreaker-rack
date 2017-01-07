@@ -1,0 +1,7 @@
+.panel.panel-success
+  - unless cb_session.hint_given
+    .panel-body You may want to get a hint :-)
+    .panel-footer
+      a.btn.btn-sm.btn-success href="/hint" Show hint
+  - else
+    .panel-body The code has #{cb_session.game.hint} at some arbitrary position

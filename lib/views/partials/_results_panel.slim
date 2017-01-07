@@ -1,0 +1,8 @@
+- if cb_session.guesses.last[1] == '++++'
+  .alert.alert-success
+    span You won!
+    include _play_again_save
+- else
+  .alert.alert-danger
+    span You lost! The code was #{cb_session.game.code}.
+    include _play_again_save

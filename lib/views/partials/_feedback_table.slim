@@ -1,0 +1,16 @@
+.panel.panel-default
+  .panel-heading
+    h4 Here are the feedbacks for your guesses, #{cb_session.attempts} attempts left
+  .panel-body
+    table.table.table-striped
+      thead
+        tr
+          td Attempt #
+          td Guess
+          td Feedback
+      tbody
+      - cb_session.guesses.each_with_index do |guess, index|
+        tr
+          td = index + 1
+          td = guess[0]
+          td = guess[1]

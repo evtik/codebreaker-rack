@@ -1,0 +1,23 @@
+.container
+  .row
+    .col-xs-12.col-sm-12.col-md-6.col-lg-6
+      h2 Users statistics
+      .panel.panel-default
+        .panel-body
+          table.table.table-striped
+            thead
+              tr
+                td Player
+                td Date
+                td Code
+                td Hint used
+                td Attempts
+                td Result
+            tbody
+            - stats.each do |value|
+              tr
+                td = value.first
+                - value.last.each do |entry|
+                  td = entry
+        .panel-footer
+          a.btn.btn-primary href="/game" Play again
